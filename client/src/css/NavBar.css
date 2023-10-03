@@ -1,0 +1,31 @@
+@keyframes goIn {
+    from{
+        opacity: 0;
+    }
+    
+    to{
+        opacity: 1;
+    }
+}
+
+.logRegIn{
+    animation-duration: 2s;
+    animation-name: goIn;
+};
+
+@keyframes goOut {
+    from{
+        opacity: 1;
+    }
+    
+    to{
+        opacity: 0;
+    }
+}
+
+.logRegOut{
+    animation-duration: 2s;
+    animation-name: goOut;
+};
+
+
