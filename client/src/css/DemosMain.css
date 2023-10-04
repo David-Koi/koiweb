@@ -8,6 +8,7 @@ video {
 
 /*arriba derecha abajo izquierda*/
 .whiteGradiente{
+  z-index: 0;
   background: linear-gradient(
     197deg, 
     rgba(255,255,255,1),

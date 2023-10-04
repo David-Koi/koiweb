@@ -11,7 +11,7 @@ import '../../css/NavBar.css';
 
 export const NavBar = () => {
 
-    const { WarningColor, darkMode, setDarkMode } = useContext(GlobalContext);
+    const { WarningColor, darkMode, setDarkMode, correctConnection } = useContext(GlobalContext);
 
     const [logged, setLogged] = useState(false);
     const [login, setLogin] = useState(false);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { GlobalContext } from "../context/Globalcontext";
-import { Axios } from "axios";
+import axios from "axios";
 import { NavBar } from "./NavBarComp/NavBar";
 import { DemosMain } from "./DemosComp/DemosMain";
 import { Grid, Box, Button } from "@mui/material";
@@ -9,8 +9,27 @@ import "../css/Main.css";
 
 export const Main =()=>{
 
+    const checkDB = async () => {
+        axios
+            .get("http://localhost:4000/")
+            .then((res)=>{
+                if(res?.status === 200){
+                    setCorrecconection(true);
+                };
+            })
+            .catch((error)=>{
+                setCorrecconection(false);
+            })
+    };
+    
+    const [ correctConnection, setCorrecconection ] = useState(false);
     const WarningColor = '#ED6C02';
     const [darkMode, setDarkMode] = useState(false);
+
+    useEffect(()=>{
+        checkDB();
+    },[]);
+
 
     return(
             <GlobalContext.Provider 
@@ -18,6 +37,7 @@ export const Main =()=>{
                     WarningColor,
                     darkMode, 
                     setDarkMode,
+                    correctConnection,
                 }}
             >
                 <Box style={{height:'100vh'}}>
