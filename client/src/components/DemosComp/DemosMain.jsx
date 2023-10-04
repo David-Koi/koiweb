@@ -7,7 +7,7 @@ import { Grid, Box, Button } from "@mui/material";
 
 export const DemosMain = () => {
 
-    const { darkMode, correctConnection } =useContext(GlobalContext);
+    const { WarningColor, darkMode, correctConnection } =useContext(GlobalContext);
     const [backClass, setBackClass] = useState('whiteGradiente');
 
     useEffect(()=>{
@@ -19,11 +19,12 @@ export const DemosMain = () => {
         <Grid
             className={backClass}
             style={{
-                width:'100%', height:'100%', display:'flex',
+                height:'100%', display:'flex',
                 flexDirection:'column', 
                 justifyContent:'center',
             }}
         >
+            {/* CONTAINER*/}
             <Grid
                 style={{
                     display:'flex', 
@@ -33,7 +34,7 @@ export const DemosMain = () => {
             >
                 <p>hola</p>
             </Grid>
-
+            {/* DATABASE STATUS*/}
             <Grid id='demo' 
                 style={{height:'1%', 
                     display:'flex', 
@@ -46,22 +47,18 @@ export const DemosMain = () => {
                 <div 
                     style={{width:'15px', 
                         height:'15px', borderRadius:'50px',
-                        border:`2PX solid ${darkMode ? 'white' : 'black'}`,
                         margin:'1%', 
                         backgroundColor: 
                             correctConnection === true ? 
-                            'green' : 'red',
+                            '#67FF0A' : '#FD0D01',
                     }}
                 ></div>
             </Grid>
-
+            {/* background video*/}
             <video src={masbebet_koi_video}
                 autoplay="true" muted="true" 
                 loop="true" poster=""
             ></video>
-            {/* <section id="sect1" class="sect">
-                <h1>Sección primera - Con vídeoaaaaaaaaaaaaa</h1>
-            </section>  */}
         </Grid>
     </>
       

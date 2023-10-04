@@ -13,7 +13,9 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
+import { veriMail, veriName, veriPass } from '../../helpers/registerForm';
 import Typography from '@mui/material/Typography';
+import { useEffect } from 'react';
 
 
 export default function TransitionsModal({
@@ -27,7 +29,7 @@ export default function TransitionsModal({
         event.preventDefault();
     };
 
-    const { WarningColor, darkMode } = useContext(GlobalContext);
+    const { WarningColor, darkMode } = useContext(GlobalContext);   
 
     const style = {
         position: 'absolute',
@@ -41,11 +43,43 @@ export default function TransitionsModal({
         border: `2px solid ${WarningColor}`,
         boxShadow: 24,
         p: 4,
-      };
-
-    const inputStyle = {
-    marginBottom:'20px',
     };
+
+    const [userName, setUserName] = useState('');
+    const [corectName, setCorrectName] = useState(true);
+
+    const [mail, setMail] = useState('');
+    const [corectMail, setCorrectMail] = useState(true);
+
+    const [pass, setPass] = useState('');
+    const [corectPass, setCorrectPass] = useState(true);
+
+    const [verifyPass, setVerifyPass] = useState('');
+    const [verifyedPass, setVerifyedPass] = useState(false);
+
+    
+
+    const send =()=> {
+        let aux = {
+            userName : userName,
+            mail : mail,
+            pass : pass,
+        };
+        console.log(aux)
+    };
+
+    useEffect(()=>{
+        veriName(userName) ? setCorrectName(false) : setCorrectName(true)
+    },[userName]);
+
+    useEffect(()=>{
+        console.log(veriMail(mail))
+        veriMail(mail) ? setCorrectMail(true) : setCorrectMail(false);
+    },[mail]);
+
+    useEffect(()=>{
+        veriPass(pass) ? setCorrectMail(false) : setCorrectMail(true)
+    },[pass]);
 
     return (
         <div>
@@ -88,7 +122,7 @@ export default function TransitionsModal({
                                         color: darkMode ? `${WarningColor}` : 'black'
                                     }} 
                                     htmlFor="standard"
-                                >User name</InputLabel>
+                                >{corectName ? 'User name' : 'solo admite letras y números'}</InputLabel>
                                 <Input
                                     style={{color: darkMode ? 'white' : 'black'}}
                                     id="standard"
@@ -100,7 +134,9 @@ export default function TransitionsModal({
                                             </IconButton>
                                         </InputAdornment>
                                     }
-                                    onChange={(e)=> console.log(e.target.value)}
+                                    onChange={
+                                        (e)=> {setUserName((prev)=> (prev, e.target.value))}    
+                                    }
                                 />
                             </FormControl>
                             {/* Mail*/}
@@ -118,7 +154,7 @@ export default function TransitionsModal({
                                         color: darkMode ? `${WarningColor}` : 'black'
                                     }} 
                                     htmlFor="standard"
-                                >Mail</InputLabel>                        
+                                >{corectMail || mail === '' ? 'Mail' : 'formato no válido'}</InputLabel>                        
                                 <Input
                                     style={{color: darkMode ? 'white' : 'black'}}
                                     id="standard"
@@ -129,6 +165,9 @@ export default function TransitionsModal({
                                                 <MailIcon />
                                             </IconButton>
                                         </InputAdornment>
+                                    }
+                                    onChange={
+                                        (e)=> {setMail((prev)=> (prev, e.target.value))}    
                                     }
                                 />
                             </FormControl>
@@ -164,6 +203,9 @@ export default function TransitionsModal({
                                         </IconButton>
                                     </InputAdornment>
                                     }
+                                    onChange={
+                                        (e)=> {setPass((prev)=> (prev, e.target.value))}    
+                                    }
                                 />
                             </FormControl>
                             {/* Confirm password*/}
@@ -198,12 +240,13 @@ export default function TransitionsModal({
                                         </IconButton>
                                     </InputAdornment>
                                     }
+                                    onChange={
+                                        (e)=> {setVerifyPass((prev)=> (prev, e.target.value))}    
+                                    }
                                 />
                             </FormControl>
                             {/* Buttons*/}
-                            <div 
-                                style={{ width:'40%', display:'flex', justifyContent:'space-between'}}
-                            >
+                            <div style={{ width:'40%', display:'flex', justifyContent:'space-between'}}>
                                 <Button 
                                     variant="outlined" 
                                     color="warning" href="#outlined-buttons"
@@ -211,6 +254,7 @@ export default function TransitionsModal({
                                 >Cancel</Button>
                                 <Button variant="outlined" 
                                     color="warning" href="#outlined-buttons"
+                                    onClick={(e)=>send()}
                                 >Send</Button>
                             </div>
                         </Grid>

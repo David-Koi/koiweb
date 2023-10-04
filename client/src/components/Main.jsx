@@ -9,6 +9,9 @@ import "../css/Main.css";
 
 export const Main =()=>{
 
+    /** 
+     * @description check database status.
+     */
     const checkDB = async () => {
         axios
             .get("http://localhost:4000/")
@@ -29,7 +32,6 @@ export const Main =()=>{
     useEffect(()=>{
         checkDB();
     },[]);
-
 
     return(
             <GlobalContext.Provider 
