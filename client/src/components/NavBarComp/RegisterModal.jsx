@@ -46,18 +46,17 @@ export default function TransitionsModal({
     };
 
     const [userName, setUserName] = useState('');
-    const [corectName, setCorrectName] = useState(true);
+    const [corectName, setCorrectName] = useState(false);
 
     const [mail, setMail] = useState('');
-    const [corectMail, setCorrectMail] = useState(true);
+    const [corectMail, setCorrectMail] = useState(false);
 
     const [pass, setPass] = useState('');
-    const [corectPass, setCorrectPass] = useState(true);
+    const [corectPass, setCorrectPass] = useState(false);
+    const [passMessage, setPassMessage] = useState('')
 
     const [verifyPass, setVerifyPass] = useState('');
     const [verifyedPass, setVerifyedPass] = useState(false);
-
-    
 
     const send =()=> {
         let aux = {
@@ -73,13 +72,27 @@ export default function TransitionsModal({
     },[userName]);
 
     useEffect(()=>{
-        console.log(veriMail(mail))
         veriMail(mail) ? setCorrectMail(true) : setCorrectMail(false);
     },[mail]);
 
     useEffect(()=>{
-        veriPass(pass) ? setCorrectMail(false) : setCorrectMail(true)
+        setPassMessage('');
+        setCorrectPass(false)
+        let res = false;
+        let aux = veriPass(pass);
+        if(pass !== ''){
+            if(aux.value){
+                setCorrectPass(true);
+            }else{
+                setPassMessage(aux.message)
+            };
+        };
     },[pass]);
+
+    useEffect(()=>{
+        setVerifyedPass(false)
+        if(verifyPass !== '' && pass === verifyPass){setVerifyedPass(true)}
+    },[verifyPass]);
 
     return (
         <div>
@@ -122,9 +135,23 @@ export default function TransitionsModal({
                                         color: darkMode ? `${WarningColor}` : 'black'
                                     }} 
                                     htmlFor="standard"
-                                >{corectName ? 'User name' : 'solo admite letras y números'}</InputLabel>
+                                >{corectName ? 'User name' : 'solo admite letras y números'}
+                                </InputLabel>
                                 <Input
-                                    style={{color: darkMode ? 'white' : 'black'}}
+                                    style={{
+                                        color: userName !== '' ? 
+                                            (corectName ?
+                                                (darkMode ? 
+                                                    `${WarningColor}` 
+                                                : 
+                                                    'black'
+                                                )
+                                            :
+                                                'red'
+                                            )
+                                        :
+                                            (darkMode ? `${WarningColor}` : 'black'),
+                                    }}
                                     id="standard"
                                     type={'text'}
                                     endAdornment={
@@ -154,9 +181,23 @@ export default function TransitionsModal({
                                         color: darkMode ? `${WarningColor}` : 'black'
                                     }} 
                                     htmlFor="standard"
-                                >{corectMail || mail === '' ? 'Mail' : 'formato no válido'}</InputLabel>                        
+                                >{corectMail || mail === '' ? 'Mail' : 'formato no válido'}
+                                </InputLabel>                        
                                 <Input
-                                    style={{color: darkMode ? 'white' : 'black'}}
+                                    style={{
+                                        color: mail !== '' ? 
+                                            (corectMail ?
+                                                (darkMode ? 
+                                                    `${WarningColor}` 
+                                                : 
+                                                    'black'
+                                                )
+                                            :
+                                                'red'
+                                            )
+                                        :
+                                            (darkMode ? `${WarningColor}` : 'black'),
+                                    }}
                                     id="standard"
                                     type={'text'}
                                     endAdornment={
@@ -173,10 +214,10 @@ export default function TransitionsModal({
                             </FormControl>
                             {/* Password*/}
                             <FormControl 
-                                sx={{ m:2, mb: 5, width: '25ch',
+                                sx={{ m:2, mb: 0, width: '25ch',
                                     '& .MuiInput-underline:before': { 
                                         borderBottomColor: darkMode ? `${WarningColor}` : 'black', 
-                                    },  
+                                    }, minHeight:'20%'  
                                 }} 
                                 variant="standard"    
                                 color="warning"
@@ -188,7 +229,20 @@ export default function TransitionsModal({
                                     htmlFor="standard-adornment-password"
                                 >Password</InputLabel>
                                 <Input                                    
-                                    style={{color: darkMode ? 'white' : 'black'}}
+                                    style={{
+                                        color: pass !== '' ? 
+                                            (corectPass ?
+                                                (darkMode ? 
+                                                    `${WarningColor}` 
+                                                : 
+                                                    'black'
+                                                )
+                                            :
+                                                'red'
+                                            )
+                                        :
+                                            (darkMode ? `${WarningColor}` : 'black'),
+                                    }}                                    
                                     id="standard-adornment-password"
                                     type={showPassword ? 'text' : 'password'}
                                     endAdornment={
@@ -207,10 +261,13 @@ export default function TransitionsModal({
                                         (e)=> {setPass((prev)=> (prev, e.target.value))}    
                                     }
                                 />
+                                <p style={{textAlign:'center', color:'red', fontSize:'10px'}}>
+                                    {passMessage !== '' ? passMessage : ''}
+                                </p>
                             </FormControl>
                             {/* Confirm password*/}
                             <FormControl 
-                                sx={{ m:2, mb: 5, width: '25ch',
+                                sx={{ m:0, mb: 5, width: '25ch',
                                     '& .MuiInput-underline:before': { 
                                         borderBottomColor: darkMode ? `${WarningColor}` : 'black', 
                                     },  
@@ -223,9 +280,23 @@ export default function TransitionsModal({
                                         color: darkMode ? `${WarningColor}` : 'black'
                                     }} 
                                     htmlFor="standard-adornment-password"
-                                >Confirm password</InputLabel>
+                                >{verifyedPass === true || verifyPass === '' ? 'Confirm password' : 'las contraseñas no coinciden.'}
+                                </InputLabel>
                                 <Input
-                                    style={{color: darkMode ? 'white' : 'black'}}
+                                    style={{
+                                        color: verifyPass !== '' ? 
+                                            (verifyedPass ?
+                                                (darkMode ? 
+                                                    `${WarningColor}` 
+                                                : 
+                                                    'black'
+                                                )
+                                            :
+                                                'red'
+                                            )
+                                        :
+                                            (darkMode ? `${WarningColor}` : 'black'),
+                                    }}                                     
                                     id="standard-adornment-password"
                                     type={showPassword ? 'text' : 'password'}
                                     endAdornment={
@@ -246,7 +317,11 @@ export default function TransitionsModal({
                                 />
                             </FormControl>
                             {/* Buttons*/}
-                            <div style={{ width:'40%', display:'flex', justifyContent:'space-between'}}>
+                            <div 
+                                style={{ width:'40%', display:'flex', 
+                                    justifyContent:'space-between'
+                                }}
+                            >
                                 <Button 
                                     variant="outlined" 
                                     color="warning" href="#outlined-buttons"
