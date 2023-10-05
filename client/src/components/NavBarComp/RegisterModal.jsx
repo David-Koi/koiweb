@@ -1,4 +1,5 @@
 import React, {useState, useContext} from 'react';
+import axios from 'axios';
 import { GlobalContext } from '../../context/Globalcontext';
 import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
@@ -58,13 +59,31 @@ export default function TransitionsModal({
     const [verifyPass, setVerifyPass] = useState('');
     const [verifyedPass, setVerifyedPass] = useState(false);
 
+    const registerCall = async (obj) => {
+
+        console.log(obj)
+
+        axios
+            .post("http://localhost:4000/user/register", obj)
+            .then((res)=>{
+                if(res?.status === 200){
+                   console.log(res);
+                };
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
+
+    };
+
     const send =()=> {
         let aux = {
             userName : userName,
             mail : mail,
             pass : pass,
         };
-        console.log(aux)
+
+        registerCall(aux);
     };
 
     useEffect(()=>{
@@ -330,6 +349,13 @@ export default function TransitionsModal({
                                 <Button variant="outlined" 
                                     color="warning" href="#outlined-buttons"
                                     onClick={(e)=>send()}
+                                    disabled={
+                                        corectName && 
+                                            corectMail && 
+                                                corectPass && 
+                                                    verifyedPass ? 
+                                                    false : true
+                                    }
                                 >Send</Button>
                             </div>
                         </Grid>
@@ -339,3 +365,4 @@ export default function TransitionsModal({
         </div>
     );
 }
+
