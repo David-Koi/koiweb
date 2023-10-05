@@ -49,7 +49,7 @@ export default function TransitionsModal({
     const [userName, setUserName] = useState('');
     const [corectName, setCorrectName] = useState(false);
 
-    const [mail, setMail] = useState('');
+    const [email, setEmail] = useState('');
     const [corectMail, setCorrectMail] = useState(false);
 
     const [pass, setPass] = useState('');
@@ -79,7 +79,7 @@ export default function TransitionsModal({
     const send =()=> {
         let aux = {
             userName : userName,
-            mail : mail,
+            email : email,
             pass : pass,
         };
 
@@ -91,8 +91,8 @@ export default function TransitionsModal({
     },[userName]);
 
     useEffect(()=>{
-        veriMail(mail) ? setCorrectMail(true) : setCorrectMail(false);
-    },[mail]);
+        veriMail(email) ? setCorrectMail(true) : setCorrectMail(false);
+    },[email]);
 
     useEffect(()=>{
         setPassMessage('');
@@ -200,11 +200,11 @@ export default function TransitionsModal({
                                         color: darkMode ? `${WarningColor}` : 'black'
                                     }} 
                                     htmlFor="standard"
-                                >{corectMail || mail === '' ? 'Mail' : 'formato no válido'}
+                                >{corectMail || email === '' ? 'Mail' : 'formato no válido'}
                                 </InputLabel>                        
                                 <Input
                                     style={{
-                                        color: mail !== '' ? 
+                                        color: email !== '' ? 
                                             (corectMail ?
                                                 (darkMode ? 
                                                     `${WarningColor}` 
@@ -227,7 +227,7 @@ export default function TransitionsModal({
                                         </InputAdornment>
                                     }
                                     onChange={
-                                        (e)=> {setMail((prev)=> (prev, e.target.value))}    
+                                        (e)=> {setEmail((prev)=> (prev, e.target.value))}    
                                     }
                                 />
                             </FormControl>
