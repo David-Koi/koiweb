@@ -9,8 +9,11 @@ class userController {
     userRegister = (req, res) => {
         const { userName, email, pass } = req.body; 
 
-        let aux = jwtHelper.verifyToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhY29AaG90bWFpbC5jb20iLCJpYXQiOjE2OTY1Mjk0ODcsImV4cCI6MTY5NjUyOTQ4OH0.ZwLFRIhPlJWIeTwxMO6cxEM1ElUNElXcEwzbjaoKxDo');
+        let aux = jwtHelper.createToken(req.body);
+console.log(aux)
+        let aux1 = jwtHelper.decodeToken(aux);
 
+        console.log(aux1)
 
 
   console.log(aux)

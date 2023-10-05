@@ -6,7 +6,7 @@ const createToken = (obj) => {
     const payload = {
         email : obj.email,
         iat : moment().unix(),
-        exp : moment().add(1, 'second').unix(),
+        exp : moment().add(1, 'day').unix(),
     };
 
     return jwt.sign(payload, process.env.SECRET_TOKEN);
@@ -24,4 +24,8 @@ const verifyToken = (string) => {
     return res;
 };
 
-module.exports = {createToken, verifyToken};
+const decodeToken = (string) => {
+    return jwt.decode(string, process.env.SECRET_TOKEN)
+};
+
+module.exports = {createToken, verifyToken, decodeToken};
