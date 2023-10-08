@@ -1,10 +1,10 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import axios from 'axios';
 import { GlobalContext } from '../../context/Globalcontext';
 import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-import { Grid, Box, Button,TextField } from "@mui/material";
+import { Grid, Box, Button } from "@mui/material";
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
@@ -15,9 +15,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import { veriMail, veriName, veriPass } from '../../helpers/registerForm';
-import Typography from '@mui/material/Typography';
-import { useEffect } from 'react';
-
+import { loginCall } from './LoginForm';
 
 export default function TransitionsModal({
     open, 
@@ -59,21 +57,20 @@ export default function TransitionsModal({
     const [verifyPass, setVerifyPass] = useState('');
     const [verifyedPass, setVerifyedPass] = useState(false);
 
+    const [loading, setLoading] = useState(false);
+
     const registerCall = async (obj) => {
-
-        console.log(obj)
-
+        setLoading(true);
         axios
             .post("http://localhost:4000/user/register", obj)
             .then((res)=>{
                 if(res?.status === 200){
-                   console.log(res);
+                    loginCall(obj)
                 };
             })
             .catch((error)=>{
                 console.log(error);
             })
-
     };
 
     const send =()=> {
@@ -96,8 +93,7 @@ export default function TransitionsModal({
 
     useEffect(()=>{
         setPassMessage('');
-        setCorrectPass(false)
-        let res = false;
+        setCorrectPass(false);
         let aux = veriPass(pass);
         if(pass !== ''){
             if(aux.value){
@@ -110,8 +106,12 @@ export default function TransitionsModal({
 
     useEffect(()=>{
         setVerifyedPass(false)
-        if(verifyPass !== '' && pass === verifyPass){setVerifyedPass(true)}
-    },[verifyPass]);
+        if(verifyPass !== ''){
+            if(pass === verifyPass){
+                setVerifyedPass(true);
+            };
+        };
+    },[verifyPass, pass]);
 
     return (
         <div>

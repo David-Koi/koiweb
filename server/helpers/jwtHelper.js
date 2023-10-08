@@ -2,13 +2,11 @@ const  jwt = require('jsonwebtoken');
 const moment = require('moment');
 
 const createToken = (obj) => {
-
     const payload = {
         email : obj.email,
         iat : moment().unix(),
         exp : moment().add(1, 'day').unix(),
     };
-
     return jwt.sign(payload, process.env.SECRET_TOKEN);
 };
 

@@ -10,11 +10,29 @@ import FormControl from '@mui/material/FormControl';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import axios from 'axios';
 import "../../css/NavBar.css";
+
+export const loginCall = async(obj)=>{
+    console.log(obj)
+    axios 
+        .post("http://localhost:4000/user/login", obj)
+        .then((res)=>{
+            if(res?.status === 200){
+               console.log(res, ' ok');
+            }else if(res?.status === 201){
+                console.log(res , ' no ok');
+
+            };
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
+};
 
 export const LoginForm = () => {
 
-    const { WarningColor, darkMode, setDarkMode } = useContext(GlobalContext);
+    const { WarningColor, darkMode } = useContext(GlobalContext);
 
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -22,6 +40,9 @@ export const LoginForm = () => {
         event.preventDefault();
     };
 
+    const [email, setEmail] = useState();
+    const [pass, setPass] = useState();
+       
     return(
         <>
         <Grid md={10} className={"logRegIn"} style={{
@@ -38,7 +59,7 @@ export const LoginForm = () => {
                     <AccountCircle color='warning' sx={{mr: 1, my: 0.5,marginTop:2 }}/>
                     <TextField text id="input-with-sx" 
                         InputLabelProps={{style:{color: darkMode ? `${WarningColor}` : 'black'}}} color="warning" 
-                        label="User" variant="standard"
+                        label="User email" variant="standard"
                         sx={{
                             '& .MuiInput-underline:before': { 
                                 borderBottomColor: darkMode ? `${WarningColor}` : 'black', 
@@ -47,6 +68,7 @@ export const LoginForm = () => {
                         inputProps={{
                             style:{color: darkMode ? 'white' : 'black',}
                         }}
+                        onChange={(e)=> setEmail((prev)=> (prev, e.target.value))}
                     />
                 </Box>
             </Grid> 
@@ -90,6 +112,7 @@ export const LoginForm = () => {
                                 </IconButton>
                             </InputAdornment>
                         }
+                        onChange={(e)=> setPass((prev)=> (prev, e.target.value))}
                     />
                 </FormControl>
             </Grid> 
@@ -101,6 +124,7 @@ export const LoginForm = () => {
             >
                 <Button 
                     variant="outlined" color="warning" href="#outlined-buttons"
+                    onClick={(e)=> loginCall({email : email, pass : pass})}
                 >Log in</Button>
             </Grid>
         </Grid>
