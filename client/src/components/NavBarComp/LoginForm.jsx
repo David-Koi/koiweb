@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import { GlobalContext } from "../../context/Globalcontext";
 import { Grid, Box, Button } from "@mui/material";
 import TextField from '@mui/material/TextField';
@@ -10,6 +10,7 @@ import FormControl from '@mui/material/FormControl';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { veriMail } from "../../helpers/registerForm";
 import axios from 'axios';
 import "../../css/NavBar.css";
 
@@ -40,8 +41,20 @@ export const LoginForm = () => {
         event.preventDefault();
     };
 
-    const [email, setEmail] = useState();
-    const [pass, setPass] = useState();
+    const [email, setEmail] = useState('');
+    const [emailMessage, setEmailMessage] = useState('');
+    const [pass, setPass] = useState('');
+
+    useEffect(() => {
+        setEmailMessage('');
+        if(email !== ""){
+            let aux = veriMail(email);
+            if(aux === false){
+             setEmailMessage("formato incorrecto.");
+            };
+        };
+    }, [email])
+    
        
     return(
         <>
@@ -58,8 +71,19 @@ export const LoginForm = () => {
                 <Box sx={{ display: 'flex', alignItems: 'center',}}>
                     <AccountCircle color='warning' sx={{mr: 1, my: 0.5,marginTop:2 }}/>
                     <TextField text id="input-with-sx" 
-                        InputLabelProps={{style:{color: darkMode ? `${WarningColor}` : 'black'}}} color="warning" 
-                        label="User email" variant="standard"
+                        InputLabelProps={{
+                            style:{
+                                color: emailMessage !== "" ? 
+                                    'red'
+                                :
+                                    (darkMode ? `${WarningColor}` : 'black')
+                            }
+                        }} 
+                        color="warning" 
+                        label={email !== "" &&
+                                emailMessage !== "" ? emailMessage : "User email"
+                        } 
+                        variant="standard"
                         sx={{
                             '& .MuiInput-underline:before': { 
                                 borderBottomColor: darkMode ? `${WarningColor}` : 'black', 

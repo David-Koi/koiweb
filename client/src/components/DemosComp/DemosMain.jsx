@@ -32,7 +32,7 @@ export const DemosMain = () => {
                     minHeight:'97%',
                 }}
             >
-                <p>hola</p>
+                <p>DemosMain</p>
             </Grid>
             {/* DATABASE STATUS*/}
             <Grid id='demo' 
