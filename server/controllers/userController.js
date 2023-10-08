@@ -33,12 +33,30 @@ class userController {
         let aux = null;
         let sql = `SELECT * FROM user WHERE email = '${email}'`;
         connection.query(sql, (err, result)=>{
-            console.log(result)
             if(err) throw err;
-            aux = result[0].password
-            let compare = bcrypt.compareSync(pass, aux);
-            
-            res.status(compare ? 200 : 201).json({compare : compare});
+            console.log(result)
+            console.log(result?.length)
+            if(result?.length !== 0){
+                aux = result[0].password
+                let compare = bcrypt.compareSync(pass, aux);
+    
+                if(compare){
+                    let token = jwtHelper.createToken(req.body);
+                    let sql2 = `UPDATE user SET token = '${token}' WHERE user_id = ${result?.[0]?.user_id}`;
+                    connection.query(sql2, (error, tokenResult)=>{
+                        if(error) throw error;
+                        if(tokenResult?.changedRows !== 0){
+                            res.status(200).json({compare : compare, token : token});
+                        }else{
+                            res.status(203).json({compare : compare, token : token});
+                        };;
+                    });
+                }else{
+                    res.status(202).json({compare : compare, token : null});
+                }
+            }else{
+                res.status(201).json({compare : null, token : null});
+            }
         }); 
     };
 };

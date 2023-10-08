@@ -3,7 +3,7 @@ const moment = require('moment');
 
 const createToken = (obj) => {
     const payload = {
-        email : obj.email,
+        email : obj.user_id,
         iat : moment().unix(),
         exp : moment().add(1, 'day').unix(),
     };

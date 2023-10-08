@@ -20,11 +20,17 @@ export const loginCall = async(obj)=>{
         .post("http://localhost:4000/user/login", obj)
         .then((res)=>{
             if(res?.status === 200){
-               console.log(res, ' ok');
-            }else if(res?.status === 201){
-                console.log(res , ' no ok');
+                console.log('resultado de comparación de pass ' + res?.data?.compare)
+                console.log('token ' + res?.data?.token)
 
-            };
+               console.log(res, ' ok');
+            }else if(res?.status === 201 || res?.status === 202){
+                console.log(res , ' mail o contraseña incorrectos');
+
+            }else if(res?.status === 203){
+                console.log(res , ' error al sobreescribir el token');
+
+            };;
         })
         .catch((error)=>{
             console.log(error);
