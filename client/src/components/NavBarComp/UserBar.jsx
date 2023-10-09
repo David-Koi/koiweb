@@ -9,7 +9,7 @@ export const UserBar = ({user, reset}) => {
         setDarkMode, correctConnection 
     } = useContext(GlobalContext);
 
-    const foto = require('../../assets/images/blood.jpeg');
+    const foto = require('../../assets/avatars/zebra.jpg');
 
     const logout = () => {
         localStorage.removeItem("token");
@@ -27,23 +27,46 @@ export const UserBar = ({user, reset}) => {
                 alignItems:'center',
             }}
         >
-            <Grid md={6} style={{display:'flex', justifyContent:'center'}}>
+            <Grid md={2} style={{display:'flex', justifyContent:'flex-end', flexDirection:'column', alignItems:'center'}}>
                 <div 
                     style={{ 
-                        width:'90px', 
-                        height:'90px', borderRadius:'100%',
+                        width:'60px', 
+                        height:'60px',
+                        border:`2px solid ${WarningColor}`, 
+                        borderRadius:'100%',
                         backgroundImage:`url(${foto})`,
                         backgroundPosition : 'center',
                         backgroundRepeat:'no-repeat',
-                        backgroundSize:'cover'
+                        backgroundSize:'cover',
                     }}
                 ></div>
+                
             </Grid>
-            <Grid md={4}>
-            <h2>{user?.userName}</h2>
+            <Grid md={3}>
+                <h2 
+                    style={{
+                        textAlign:'left',
+                        margin:'0%',
+                        color: darkMode ? WarningColor : 'black',
+                        fontFamily:'monospace'
+                    }}
+                >{user?.userName}</h2>
+                <p style={{fontSize:'10px', margin:'0%', textAlign:'left'}}>
+                    <a href="https://www.freepik.com/free-vector/variety-animal-avatars_766787.htm#query=animal%20avatars&position=2&from_view=keyword&track=ais" 
+                    target="_blank"
+                    style={{textDecoration:'none',
+                    color: darkMode ? 'white' : 'black'}}
+                    >Image by Freepik.com</a>
+                </p>
             </Grid>
             <Grid md={2}>
-            <Button onClick={(e)=> logout()}>Log out</Button>
+                <Button
+                    size="small" 
+                    variant="outlined" color="warning" 
+                    href="#outlined-buttons"
+                    sx={{borderRadius:'20px'}}
+                    onClick={()=> logout()}
+                >Log out</Button>
             </Grid>
         </Grid>
     );

@@ -70,16 +70,19 @@ export const NavBar = () => {
                     style={{
                         display:'flex',
                         justifyContent:'flex-start',
-                        alignItems:'center'
+                        alignItems:'center',
+                        minHeight:'10vh'
                     }} 
-                ><img style={{height:'100px'}} src={logo}/>
+                >
+                    {/* <img style={{height:'100px'}} src={logo}/> */}
                 <h1 style={{
                     margin:'0px',
                     color:`${WarningColor}`,
                     fontFamily:'Fontasia',
                     fontSize:'60px',
                     fontWeight:'lighter',
-                    textAlign:'center' 
+                    textAlign:'center',
+                    padding:'1%'
                 }}>Portfolio David Medina</h1>
                 </Grid>
                 <Grid item

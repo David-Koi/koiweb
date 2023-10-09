@@ -16,7 +16,7 @@ export const DemosMain = () => {
 
     return(
     <>
-        <Grid
+        <Grid 
             className={backClass}
             style={{
                 height:'100%', display:'flex',
@@ -29,30 +29,55 @@ export const DemosMain = () => {
                 style={{
                     display:'flex', 
                     justifyContent:'center',
-                    minHeight:'97%',
+                    minHeight:'93%',
                 }}
             >
-                <p>DemosMain</p>
+                <p></p>
             </Grid>
             {/* DATABASE STATUS*/}
-            <Grid id='demo' 
-                style={{height:'1%', 
+            <Grid container id='demo' 
+                style={{ 
                     display:'flex', 
-                    justifyContent:'flex-end',
+                    justifyContent:'space-between',
                     alignItems:'center',
-                    marginBottom:'1%',
                 }}
             >
-                <p style={{color: darkMode ? 'white' : 'black'}}>DataBase connection</p>
-                <div 
-                    style={{width:'15px', 
-                        height:'15px', borderRadius:'50px',
-                        margin:'1%', 
-                        backgroundColor: 
-                            correctConnection === true ? 
-                            '#67FF0A' : '#FD0D01',
+                <Grid item md={6}
+                    style={{ 
+                    display:'flex', 
+                    alignItems:'center', 
+                    justifyContent:'flex-start',
                     }}
-                ></div>
+                >
+                    <p style={{color:'white', marginLeft:'10px'}}>
+                        <a 
+                            href="https://pixabay.com/users/masbebet-5633372/"
+                            style={{color:'white', textDecoration:'none'}}
+                            target="_blank"
+                        >®video copyright belongs to Masbebet </a>
+                    </p>
+                </Grid>
+
+                <Grid md={6} 
+                    style={{
+                        display:'flex',
+                        alignItems:'center', 
+                        justifyContent:'flex-end'
+                    }}
+                >
+                    <p style={{color: darkMode ? WarningColor : 'black'}}>DataBase connection</p>
+                    <div 
+                        style={{width:'15px', 
+                            height:'15px', 
+                            borderRadius:'50px',
+                            margin:'1%',
+                            backgroundColor: 
+                                correctConnection === true ? 
+                                '#67FF0A' : '#FD0D01',
+                        }}
+                    ></div>
+
+                </Grid>
             </Grid>
             {/* background video*/}
             <video src={masbebet_koi_video}
