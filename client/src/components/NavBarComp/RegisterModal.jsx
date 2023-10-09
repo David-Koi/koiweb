@@ -17,9 +17,10 @@ import MailIcon from '@mui/icons-material/Mail';
 import { veriMail, veriName, veriPass } from '../../helpers/registerForm';
 import { loginCall } from './LoginForm';
 
-export default function TransitionsModal({
+export default function RegisterModal({
     open, 
     reset,
+    setLogged,
 }){
 
     const [showPassword, setShowPassword] = useState(false);
@@ -65,7 +66,7 @@ export default function TransitionsModal({
             .post("http://localhost:4000/user/register", obj)
             .then((res)=>{
                 if(res?.status === 200){
-                    loginCall(obj)
+                    loginCall(obj, setLogged)
                 };
             })
             .catch((error)=>{
@@ -119,7 +120,6 @@ export default function TransitionsModal({
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
                 open={open}
-                // onClose={reset}
                 closeAfterTransition
                 slots={{ backdrop: Backdrop }}
                 slotProps={{

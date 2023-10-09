@@ -14,15 +14,19 @@ import { veriMail } from "../../helpers/registerForm";
 import axios from 'axios';
 import "../../css/NavBar.css";
 
-export const loginCall = async(obj)=>{
-    console.log(obj)
+export const loginCall = async(obj, logSetter, userSetter)=>{
     axios 
         .post("http://localhost:4000/user/login", obj)
         .then((res)=>{
             if(res?.status === 200){
-                console.log('resultado de comparación de pass ' + res?.data?.compare)
-                console.log('token ' + res?.data?.token)
-
+                console.log(res)
+                userSetter({
+                    userName : res?.data?.userName, 
+                    email : res?.data?.email
+                });
+                let aux = res?.data?.token;
+                localStorage.setItem("token", aux);
+                logSetter(true);
                console.log(res, ' ok');
             }else if(res?.status === 201 || res?.status === 202){
                 console.log(res , ' mail o contraseña incorrectos');
@@ -37,7 +41,7 @@ export const loginCall = async(obj)=>{
         })
 };
 
-export const LoginForm = () => {
+export const LoginForm = ({setLogged, setUser}) => {
 
     const { WarningColor, darkMode } = useContext(GlobalContext);
 
@@ -154,7 +158,13 @@ export const LoginForm = () => {
             >
                 <Button 
                     variant="outlined" color="warning" href="#outlined-buttons"
-                    onClick={(e)=> loginCall({email : email, pass : pass})}
+                    onClick={
+                        (e)=> loginCall(
+                            {email : email, pass : pass}, 
+                            setLogged,
+                            setUser,
+                        )
+                    }
                 >Log in</Button>
             </Grid>
         </Grid>

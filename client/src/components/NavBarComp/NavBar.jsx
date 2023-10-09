@@ -5,13 +5,17 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { LoginForm } from "./LoginForm";
-import TransitionsModal from "./RegisterModal";
+import RegisterModal from "./RegisterModal";
+import { UserBar } from "./UserBar";
 import logo from '../../assets/images/koiLogo.png';
 import '../../css/NavBar.css';
 
 export const NavBar = () => {
 
-    const { WarningColor, darkMode, setDarkMode, correctConnection } = useContext(GlobalContext);
+    const { 
+        WarningColor, darkMode, 
+        setDarkMode, correctConnection 
+    } = useContext(GlobalContext);
 
     const [logged, setLogged] = useState(false);
     const [login, setLogin] = useState(false);
@@ -22,18 +26,16 @@ export const NavBar = () => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-
+    const [user, setUser] = useState({});
     const activateLogin = () => {
-        // setLogRegClass('logRegOut');
-        // setTimeout(()=>{
-            setLogged(true);
-            setLogin(true);
-        // },500);
+        setLogged(false);
+        setLogin(true);
+
     };
 
     const activateRegister = () => {
         setLogRegClass('logRegOut');
-        setLogged(true);
+        setLogged(false);
         handleOpen();
     };
 
@@ -43,6 +45,17 @@ export const NavBar = () => {
         handleClose();
         setLogin(false);
     };
+
+    useEffect(() => {
+        setLogRegClass('logRegIn');
+        setLogin(false);
+        setOpen(false);
+    }, [logged])
+    
+    useEffect(() => {
+      console.log(user)
+    }, [user])
+    
 
     return(
         <Box 
@@ -87,34 +100,38 @@ export const NavBar = () => {
                             >{<ArrowForwardIosIcon/>}</Button>
                         }
                     </Grid>
-                    {!logged ? 
-                        <Grid md={10}
-                            style={{
-                                display:'flex', justifyContent:'flex-end',
-                                alignItems:'center'
-                            }}
-                            className={logRegClass}
-                        >
-                            <Button 
-                                variant="outlined" color="warning" href="#outlined-buttons"
-                                sx={{borderRadius:'20px'}}
-                                onClick={()=> activateLogin()}
-                            >Iniciar sesión</Button>
-                            <Button 
-                                variant="outlined" color="warning" href="#outlined-buttons"
-                                sx={{marginLeft:'5%', borderRadius:'20px'}}
-                                onClick={()=> activateRegister()}
-                            >Crear cuenta</Button>
-                        </Grid>                
+                    {!logged ?
+                        (login ?    
+                            <LoginForm setLogged={setLogged} setUser={setUser}/>
+                        :
+                            (open ?
+                                <Grid md={10} className={logRegClass}></Grid>
+                            :    
+                                (
+                                    <Grid md={10}
+                                        style={{
+                                            display:'flex', justifyContent:'flex-end',
+                                            alignItems:'center'
+                                        }}
+                                        className={logRegClass}
+                                    >
+                                        <Button 
+                                            variant="outlined" color="warning" href="#outlined-buttons"
+                                            sx={{borderRadius:'20px'}}
+                                            onClick={()=> activateLogin()}
+                                        >Iniciar sesión</Button>
+                                        <Button 
+                                            variant="outlined" color="warning" href="#outlined-buttons"
+                                            sx={{marginLeft:'5%', borderRadius:'20px'}}
+                                            onClick={()=> activateRegister()}
+                                        >Crear cuenta</Button>
+                                    </Grid>  
+                                )
+                            )
+                        )
                     :
                         (
-                            login ?
-                                    <LoginForm/>
-                            :
-                                (
-                                    open &&
-                                    <Grid md={10} className={logRegClass}></Grid>
-                                )
+                            <UserBar user={user} reset={reset}/>
                         )
                     }
                     <Grid item md={1}
@@ -136,9 +153,10 @@ export const NavBar = () => {
                 </Grid>
             </Grid>
             {open &&
-                <TransitionsModal 
+                <RegisterModal 
                     open={open} 
-                    handleOpen={handleOpen} 
+                    handleOpen={handleOpen}
+                    setLogged={setLogged} 
                     reset={reset}
                 />
             }
