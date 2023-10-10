@@ -1,0 +1,136 @@
+.introTitle{
+    animation-duration: 1s;
+    animation-name: traslation;
+    position: relative;
+    text-align: left;
+    left: 50px;
+}
+
+@keyframes traslation {
+    from{
+        left: 1500px;
+        opacity: 0;
+    }
+    
+    to{
+        left: 50px;
+        opacity: 1;
+    }
+}
+
+
+.introTitle2{
+    animation-duration: 2s;
+    animation-name: traslation2;
+    position: relative;
+    text-align: left;
+    left: 200px;
+}
+
+@keyframes traslation2 {
+    from{
+        left: 1500px;
+        opacity: 0;
+    }
+    
+    to{
+        left: 200px;
+        opacity: 1;
+    }
+}
+
+@keyframes typing {
+    0% {width : 0;border-right: 4px solid; opacity:1}
+    25%{border-right: 0px solid; opacity:1}
+    50%{border-right: 4px solid; opacity:1}
+    75%{border-right: 0px solid; opacity:1}
+    100% {border-right: 0px solid; opacity:1 }
+    /* 80% {width : 0;} */
+}
+/*
+@keyframes blink {
+    50%{border-color: transparent;}
+
+}
+*/
+#s0{
+    opacity: 0;
+    text-align: left;
+    position: relative;
+    left: 300px;
+    display: block;
+    white-space: nowrap;
+    width: 10ch;
+    overflow: hidden;
+    /* animation: typing 1s steps(10),
+    blink .5s infinite step-end alternate */
+    animation-duration: 1s;
+    animation-timing-function: steps(10);
+    animation-name: typing;
+    animation-delay: 3s;
+    animation-fill-mode: forwards;
+}
+
+#s1{
+    opacity: 0;
+    text-align: left;
+    position: relative;
+    left: 300px;
+    display: block;
+    white-space: nowrap;
+    width: 10ch;
+    overflow: hidden;
+    animation-duration: 1s;
+    animation-timing-function: steps(5);
+    animation-name: typing;
+    animation-delay: 4s;
+    animation-fill-mode: forwards;
+}
+
+#s2{
+    opacity: 0;
+    text-align: left;
+    position: relative;
+    left: 300px;
+    display: block;
+    white-space: nowrap;
+    width: 10ch;
+    overflow: hidden;
+    animation-duration: 1s;
+    animation-timing-function: steps(6);
+    animation-name: typing;
+    animation-delay: 5s;
+    animation-fill-mode: forwards;
+}
+
+#s3{
+    opacity: 0;
+    text-align: left;
+    position: relative;
+    left: 300px;
+    display: block;
+    white-space: nowrap;
+    width: 10ch;
+    overflow: hidden;
+    animation-duration: 1s;
+    animation-timing-function: steps(6);
+    animation-name: typing;
+    animation-delay: 6s;
+    animation-fill-mode: forwards;
+}
+
+#s4{
+    opacity: 0;
+    text-align: left;
+    position: relative;
+    left: 300px;
+    display: block;
+    white-space: nowrap;
+    width: 10ch;
+    overflow: hidden;
+    animation-duration: 1s;
+    animation-timing-function: steps(6);
+    animation-name: typing;
+    animation-delay: 7s;
+    animation-fill-mode: forwards;
+}

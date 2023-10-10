@@ -1,9 +1,10 @@
 import React, {useEffect, useState, useContext} from "react";
-import masbebet_koi_video from "../../assets/videos/masbebet_koi_video.mp4";
 import { GlobalContext } from "../../context/Globalcontext";
+import { Grid, Box, Button } from "@mui/material";
+import masbebet_koi_video from "../../assets/videos/masbebet_koi_video.mp4";
+import { Cv } from "./Cv";
 import "../../css/DemosMain.css";
 import "../../css/BlackGradiente.css";
-import { Grid, Box, Button } from "@mui/material";
 
 export const DemosMain = () => {
 
@@ -32,7 +33,7 @@ export const DemosMain = () => {
                     minHeight:'93%',
                 }}
             >
-                <p></p>
+                <Cv/>
             </Grid>
             {/* DATABASE STATUS*/}
             <Grid container id='demo' 

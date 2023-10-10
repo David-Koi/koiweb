@@ -7,7 +7,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { LoginForm } from "./LoginForm";
 import RegisterModal from "./RegisterModal";
 import { UserBar } from "./UserBar";
-import logo from '../../assets/images/koiLogo.png';
+import logo from '../../assets/images/koiLogo.jpg';
 import '../../css/NavBar.css';
 
 export const NavBar = () => {
@@ -74,7 +74,7 @@ export const NavBar = () => {
                         minHeight:'10vh'
                     }} 
                 >
-                    {/* <img style={{height:'100px'}} src={logo}/> */}
+                {/* <img style={{height:'100px'}} src={logo}/> */}
                 <h1 style={{
                     margin:'0px',
                     color:`${WarningColor}`,
