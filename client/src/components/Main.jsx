@@ -28,6 +28,7 @@ export const Main =()=>{
     const [ correctConnection, setCorrecconection ] = useState(false);
     const WarningColor = '#ED6C02';
     const [darkMode, setDarkMode] = useState(false);
+    const [logged, setLogged] = useState(false);
 
     useEffect(()=>{
         checkDB();
@@ -40,6 +41,7 @@ export const Main =()=>{
                     darkMode, 
                     setDarkMode,
                     correctConnection,
+                    logged, setLogged
                 }}
             >
                 <Box style={{height:'100vh'}}>

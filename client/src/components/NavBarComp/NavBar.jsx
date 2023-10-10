@@ -14,10 +14,10 @@ export const NavBar = () => {
 
     const { 
         WarningColor, darkMode, 
-        setDarkMode, correctConnection 
+        setDarkMode, correctConnection,
+        logged, setLogged,
     } = useContext(GlobalContext);
 
-    const [logged, setLogged] = useState(false);
     const [login, setLogin] = useState(false);
 
     const [logRegClass, setLogRegClass] = useState('logRegIn'); 
@@ -75,7 +75,8 @@ export const NavBar = () => {
                     }} 
                 >
                 {/* <img style={{height:'100px'}} src={logo}/> */}
-                <h1 style={{
+                <h1 id={logged ? "title" : ""}
+                style={{
                     margin:'0px',
                     color:`${WarningColor}`,
                     fontFamily:'Fontasia',
@@ -83,7 +84,7 @@ export const NavBar = () => {
                     fontWeight:'lighter',
                     textAlign:'center',
                     padding:'1%'
-                }}>Portfolio David Medina</h1>
+                }}>{logged ? "David Medina" : "Portfolio"}</h1>
                 </Grid>
                 <Grid item
                     md={5}

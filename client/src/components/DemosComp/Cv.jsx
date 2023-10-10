@@ -1,22 +1,49 @@
 import React, {useEffect, useState, useContext} from "react";
+import { GlobalContext } from "../../context/Globalcontext";
 import { Grid, Box, Button } from "@mui/material";
 import "../../css/Cv.css";
+import { GitHub } from "@mui/icons-material";
 
 export const Cv = () => {
 
-    const aus = ['JavaScript', 'REACT', 'NODEjs', 'HTML', 'CSS'];
+    const { 
+        WarningColor, darkMode, 
+        setDarkMode, correctConnection,
+        logged, setLogged,
+    } = useContext(GlobalContext);
+
+    const abilities = [
+        'JavaScript', 'REACT', 'NODEjs', 
+        'HTML', 'CSS', 'MySql', 'Git',
+        'Scrumm','Mui Material'
+    ];
+
+    const exp = [
+        'EnerClic'
+    ];
 
     return(
-        <Grid container md={12}>
-            <Grid md={12} item >
-                <h1 className="introTitle">Full Stack Web Developer</h1> 
-                <h2 className="introTitle2">Hablidades</h2>
-                {aus.map((elm, key)=>{
-                    return <h3 id={`s${key}`} className="typing">{elm}</h3> 
-           })} 
-               
-
+        (!logged ?
+            <Grid container style={{alignContent:'flex-start'}} md={12}>
+                <Grid item style={{}} md={12}>
+                    <h1 className="introTitle">Full Stack Web Developer</h1> 
+                </Grid>
+                <Grid md={12} style={{}} item className="abilities">
+                    <h2 className="introTitle2">Skills</h2>
+                    {abilities.map((elm, key)=>{
+                        return <h3 id={`s${key}`} className="typing">{elm}</h3> 
+                    })} 
+                </Grid>
+                <Grid md={12} style={{}} item className="experience">
+                    <h2 className="introTitle2">Experiencia</h2>
+                    {exp.map((elm, key)=>{
+                        return <h3 id={`e${key}`} className="typing">{elm}</h3> 
+                    })} 
+                </Grid>
             </Grid>
-        </Grid>
+        :
+            <></>
+        )
+        
     );
 };
