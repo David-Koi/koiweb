@@ -19,7 +19,6 @@ export const loginCall = async(obj, logSetter, userSetter)=>{
         .post("http://localhost:4000/user/login", obj)
         .then((res)=>{
             if(res?.status === 200){
-                console.log(res)
                 userSetter({
                     userName : res?.data?.userName, 
                     email : res?.data?.email
@@ -69,7 +68,7 @@ export const LoginForm = ({setLogged, setUser}) => {
     return(
         <>
         <Grid md={10} className={"logRegIn"} style={{
-                display:'flex', justifyContent:'left',
+                display:'flex', justifyContent:'center',
                 alignItems:'center',
             }}>
 

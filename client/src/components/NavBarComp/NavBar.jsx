@@ -52,11 +52,14 @@ export const NavBar = () => {
         setOpen(false);
     }, [logged])
     
-    useEffect(() => {
-      console.log(user)
-    }, [user])
-    
 
+    useEffect(() => {
+        console.log('logged ' + logged);
+        console.log('login ' + login);
+        console.log('open ' + open);
+
+    }, [logged, login, open])
+    
     return(
         <Box 
             style={{
@@ -74,23 +77,23 @@ export const NavBar = () => {
                         minHeight:'10vh'
                     }} 
                 >
-                {/* <img style={{height:'100px'}} src={logo}/> */}
-                <h1 id={logged ? "title" : ""}
-                style={{
-                    margin:'0px',
-                    color:`${WarningColor}`,
-                    fontFamily:'Fontasia',
-                    fontSize:'60px',
-                    fontWeight:'lighter',
-                    textAlign:'center',
-                    padding:'1%'
-                }}>{logged ? "David Medina" : "Portfolio"}</h1>
+                    {/* <img style={{height:'100px'}} src={logo}/> */}
+                    <h1 id={logged ? "title" : ""}
+                    style={{
+                        margin:'0px',
+                        color:`${WarningColor}`,
+                        fontFamily:'Fontasia',
+                        fontSize:'60px',
+                        fontWeight:'lighter',
+                        textAlign:'center',
+                        padding:'1%'
+                    }}>{logged ? "David Medina" : "Portfolio"}</h1>
                 </Grid>
                 <Grid item
                     md={5}
                     className="login"
                     style={{
-                        display:'flex', justifyContent:'center',
+                        display:'flex', justifyContent:'flex-end',
                         alignItems:'center'
                     }}
                 >   
