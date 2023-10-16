@@ -29,15 +29,15 @@ export const Cv = () => {
                     <h1 className="introTitle">Full Stack Web Developer</h1> 
                 </Grid>
                 <Grid md={12} style={{}} item className="abilities">
-                    <h2 className="introTitle2">Skills</h2>
+                    <h2 className="introTitle2" style={{color: darkMode ? WarningColor : 'black'}}>Skills</h2>
                     {abilities.map((elm, key)=>{
-                        return <h3 id={`s${key}`} className="typing">{elm}</h3> 
+                        return <h3 id={`s${key}`} className="typing" style={{color: darkMode ? WarningColor : 'black'}}>{elm}</h3> 
                     })} 
                 </Grid>
                 <Grid md={12} style={{}} item className="experience">
-                    <h2 className="introTitle2">Experiencia</h2>
+                    <h2 className="introTitle2" style={{color: darkMode ? WarningColor : 'black'}}>Experiencia</h2>
                     {exp.map((elm, key)=>{
-                        return <h3 id={`e${key}`} className="typing">{elm}</h3> 
+                        return <h3 id={`e${key}`} className="typing" style={{color: darkMode ? WarningColor : 'black'}}>{elm}</h3> 
                     })} 
                 </Grid>
             </Grid>
